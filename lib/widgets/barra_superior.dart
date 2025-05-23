@@ -19,19 +19,19 @@ class BarraSuperior extends StatelessWidget {
           children: [
             const CircleAvatar(
               backgroundImage: AssetImage('assets/perfil.jpg'),
-              radius: 25,
+              radius: 23,
             ),
             const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
-                Text('Bem-vindo!', style: TextStyle(color: Colors.white70, fontSize: 14)),
+                Text('Bem-vindo!', style: TextStyle(color: Colors.white70, fontSize: 12)),
                 Text(
                   'Chris Bumstead',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
               ],
