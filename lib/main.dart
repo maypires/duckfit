@@ -1,82 +1,120 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'screens/tela_login.dart';
-// import 'screens/tela_home.dart';
-// import 'screens/tela_dieta.dart';
-// import 'theme/cores_app.dart';
-
-void main() {
-  runApp(const DuckFitLoginApp());
-}
-
-class DuckFitLoginApp extends StatelessWidget {
-  const DuckFitLoginApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        textTheme: GoogleFonts.poppinsTextTheme(
-          ThemeData.dark().textTheme,
-        ),
-      ),
-      home: const TelaLogin(),
-    );
-  }
-}
-
-/*
-// --- main antigo comentado ---
 import 'screens/tela_home.dart';
 import 'screens/tela_dieta.dart';
+import 'screens/tela_treino.dart';
 import 'theme/cores_app.dart';
+import 'screens/tela_anotações.dart';
+import 'screens/tela_dieta_nutri.dart';
+import 'screens/tela_treino_personal.dart';
+import 'screens/tela_treino_monte.dart';
+import 'screens/config.dart';
+
+void main() {
+  runApp(const DuckFitApp());
+}
 
 class DuckFitApp extends StatefulWidget {
   const DuckFitApp({super.key});
 
   @override
-  State<DuckFitApp> createState() => HomeScreenState();
+  State<DuckFitApp> createState() => _DuckFitAppState();
 }
 
-class HomeScreenState extends State<DuckFitApp> {
-  int _indiceAtual = 2; // Começa na home (índice 2)
+class _DuckFitAppState extends State<DuckFitApp> {
+  bool _logado = false;
+  int _indiceAtual = 2; // 2 = Home
 
-  void onItemTapped(int index) {
+  void _onTabSelected(int index) {
     setState(() {
       _indiceAtual = index;
     });
   }
 
-  void irParaDieta() {
+  void _onLogin() {
     setState(() {
-      _indiceAtual = 0;
+      _logado = true;
+      _indiceAtual = 2;
+    });
+  }
+
+  void _onLogout() {
+    setState(() {
+      _logado = false;
+      _indiceAtual = 2;
+    });
+  }
+
+  void _onCardTap(int index) {
+    setState(() {
+      _indiceAtual = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget tela;
-    switch (_indiceAtual) {
-      case 0:
-        tela = TelaDieta(
-          onNutriTap: () {},
-          onMonteTap: () {},
-          indiceAtual: _indiceAtual,
-          onTabSelected: onItemTapped,
-        );
-        break;
-      default:
-        tela = TelaHome(
-          onCardTap: (index) {
-            if (index == 0) {
-              irParaDieta();
-            }
-            // Se quiser tratar outros cards, adicione aqui
-          },
-          indiceAtual: _indiceAtual,
-          onTabSelected: onItemTapped,
-        );
+    Widget? tela;
+    if (!_logado) {
+      tela = TelaLogin(onLogin: _onLogin);
+    } else {
+      switch (_indiceAtual) {
+        case 0:
+          tela = TelaDieta(
+            onNutriTap: () {
+            },
+            onMonteTap: () {},
+            indiceAtual: _indiceAtual,
+            onTabSelected: _onTabSelected,
+            onLogout: _onLogout,
+          );
+          break;
+        case 1:
+          tela = TelaTreino(
+            onDuckTap: () {},
+            onPersonalTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const TelaTreinoPersonal()),
+              );
+            },
+            onMonteTap: () {
+              Navigator.of(context).pushNamed('/telaTreinoMonte');
+            },
+            indiceAtual: _indiceAtual,
+            onTabSelected: _onTabSelected,
+            onLogout: _onLogout,
+          );
+          break;
+        case 2:
+          tela = TelaHome(
+            onCardTap: _onCardTap,
+            indiceAtual: _indiceAtual,
+            onTabSelected: _onTabSelected,
+            onLogout: _onLogout,
+          );
+          break;
+        case 3:
+          tela = TelaAnotacoes(
+            indiceAtual: _indiceAtual,
+            onTabSelected: _onTabSelected,
+            onLogout: _onLogout,
+          );
+          break;
+        case 4:
+          tela = TelaConfig(
+            onTabSelected: _onTabSelected,
+            indiceAtual: _indiceAtual,
+          );
+          break;
+        default:
+          tela = TelaHome(
+            onCardTap: _onCardTap,
+            indiceAtual: _indiceAtual,
+            onTabSelected: _onTabSelected,
+            onLogout: _onLogout,
+          );
+          break;
+      }
     }
 
     return MaterialApp(
@@ -88,7 +126,9 @@ class HomeScreenState extends State<DuckFitApp> {
         ),
       ),
       home: tela,
+      routes: {
+        '/telaTreinoMonte': (_) => const TelaTreinoMonte(),
+      },
     );
   }
 }
-*/

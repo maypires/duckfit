@@ -5,19 +5,21 @@ import '../widgets/barra_superior.dart';
 import '../widgets/barra_inferior.dart';
 import '../widgets/card_com_botao.dart';
 import '../widgets/barra_lateral.dart';
-import 'tela_dieta_nutri.dart';
-import 'tela_dieta_monte.dart';
+import 'tela_treino_personal.dart';
+import 'tela_treino_duck.dart';
 
-class TelaDieta extends StatelessWidget {
-  final VoidCallback onNutriTap;
+class TelaTreino extends StatelessWidget {
+  final VoidCallback onDuckTap;
+  final VoidCallback onPersonalTap;
   final VoidCallback onMonteTap;
   final int indiceAtual;
   final Function(int) onTabSelected;
   final VoidCallback? onLogout;
 
-  const TelaDieta({
+  const TelaTreino({
     super.key,
-    required this.onNutriTap,
+    required this.onDuckTap,
+    required this.onPersonalTap,
     required this.onMonteTap,
     required this.indiceAtual,
     required this.onTabSelected,
@@ -38,25 +40,31 @@ class TelaDieta extends StatelessWidget {
         child: Column(
           children: [
             CardComBotao(
-              titulo: 'NUTRICIONISTA',
-              descricao:
-              'Plano alimentar desenvolvido especialmente para você, com foco nos seus objetivos, necessidades nutricionais e rotina.',
-              imagem: 'assets/prato1.png',
+              titulo: 'TREINO DUCK',
+              descricao: 'Treino padrão desenvolvido pela equipe DuckFit para todos os perfis.',
+              imagem: 'assets/treino1.jpeg',
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const TelaDietaNutri()),
+                  MaterialPageRoute(builder: (_) => const TelaTreinoDuck()),
                 );
               },
             ),
             CardComBotao(
-              titulo: 'MONTE SUA DIETA',
-              descricao:
-              'Você tem liberdade para escolher seus alimentos com base nas suas preferências, rotina e objetivos.',
-              imagem: 'assets/prato2.png',
+              titulo: 'PERSONAL',
+              descricao: 'Treino personalizado criado pelo seu personal trainer.',
+              imagem: 'assets/treino2.jpeg',
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const TelaDietaMonte()),
+                  MaterialPageRoute(builder: (_) => const TelaTreinoPersonal()),
                 );
+              },
+            ),
+            CardComBotao(
+              titulo: 'MONTE SEU TREINO',
+              descricao: 'Monte seu próprio treino de acordo com suas preferências e objetivos.',
+              imagem: 'assets/treino.jpg',
+              onPressed: () {
+                Navigator.of(context).pushNamed('/telaTreinoMonte');
               },
             ),
           ],
@@ -69,3 +77,4 @@ class TelaDieta extends StatelessWidget {
     );
   }
 }
+
