@@ -4,17 +4,20 @@ import '../widgets/card_opcao.dart';
 import '../widgets/grafico_progresso.dart';
 import '../widgets/barra_superior.dart';
 import '../widgets/barra_inferior.dart';
+import '../widgets/barra_lateral.dart';
 
 class TelaHome extends StatelessWidget {
   final Function(int) onCardTap;
   final int indiceAtual;
   final Function(int) onTabSelected;
+  final VoidCallback? onLogout;
 
   const TelaHome({
     super.key,
     required this.onCardTap,
     required this.indiceAtual,
     required this.onTabSelected,
+    this.onLogout,
   });
 
   @override
@@ -24,6 +27,7 @@ class TelaHome extends StatelessWidget {
         preferredSize: Size.fromHeight(70),
         child: BarraSuperior(),
       ),
+      endDrawer: BarraLateral(onLogout: onLogout),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -84,3 +88,4 @@ class TelaHome extends StatelessWidget {
     );
   }
 }
+

@@ -9,8 +9,8 @@ class GraficoProgresso extends StatelessWidget {
   Widget build(BuildContext context) {
     return LineChart(
       LineChartData(
-        minY: 65,
-        maxY: 85,
+        minY: 75,
+        maxY: 110,
         gridData: FlGridData(
           show: true,
           drawVerticalLine: false,
@@ -22,7 +22,7 @@ class GraficoProgresso extends StatelessWidget {
             sideTitles: SideTitles(
               showTitles: true,
               interval: 5,
-              reservedSize: 32,
+              reservedSize: 40,
               getTitlesWidget: (value, _) => Text(
                 '${value.toInt()}kg',
                 style: const TextStyle(
@@ -58,17 +58,17 @@ class GraficoProgresso extends StatelessWidget {
         lineBarsData: [
           LineChartBarData(
             spots: const [
-              FlSpot(0, 70),
-              FlSpot(1, 75),
-              FlSpot(2, 72),
-              FlSpot(3, 73),
-              FlSpot(4, 78),
-              FlSpot(5, 77),
-              FlSpot(6, 80),
+              FlSpot(0, 80),
+              FlSpot(1, 85),
+              FlSpot(2, 87),
+              FlSpot(3, 92),
+              FlSpot(4, 95),
+              FlSpot(5, 99),
+              FlSpot(6, 102),
             ],
             isCurved: true,
             color: Colors.greenAccent,
-            barWidth: 4,
+            barWidth: 5,
             dotData: FlDotData(show: true),
             belowBarData: BarAreaData(
               show: true,
